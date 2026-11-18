@@ -155,7 +155,112 @@ While the BiLSTM achieved competitive validation AUC ($0.8892$), on strictly hel
 
 ---
 
-## 5. Our Scientific & Engineering Novelty
+## 5. Comprehensive Evaluation Metrics & Confusion Matrix Analysis
+
+In academic evaluation of cybersecurity detection systems, single-metric evaluations (such as reporting Accuracy alone) are fundamentally inadequate because:
+1. **Class Imbalance:** In real-world web traffic, benign URLs outnumber phishing lures by orders of magnitude. A naive model that classifies every URL as legitimate can achieve 99% accuracy while having a 0% detection rate.
+2. **Operational Asymmetry:** A **False Negative (FN)** allows an attacker to steal banking credentials or install malware. A **False Positive (FP)** blocks a legitimate user from accessing a valid portal.
+
+To provide a rigorous evaluation, we analyze all five standard metrics alongside the complete confusion matrices evaluated on the strictly held-out global test set ($N=7,434$ URLs across 5,881 unseen registered domains).
+
+```
++---------------------------------------------------------------------------------------------------+
+|                                  CONFUSION MATRIX FORMULATION                                     |
++---------------------------------------------------------------------------------------------------+
+|                                         PREDICTED CLASS                                           |
+|                                Predicted Benign (0)            Predicted Phishing (1)             |
+|   ACTUAL    Actual Benign (0)  True Negative (TN)              False Positive (FP)                |
+|    CLASS    Actual Phish (1)   False Negative (FN)             True Positive (TP)                 |
++---------------------------------------------------------------------------------------------------+
+```
+
+### 5.1 Metric Definitions & Mathematical Formulations
+
+1. **Accuracy:**
+   The proportion of total predictions that were correct (both legitimate and phishing):
+   $$\text{Accuracy} = \frac{\text{TP} + \text{TN}}{\text{TP} + \text{TN} + \text{FP} + \text{FN}}$$
+   *Practical Meaning:* Overall correctness. While useful for balanced sets, accuracy is easily inflated when one class dominates.
+
+2. **Precision (Positive Predictive Value):**
+   The proportion of URLs flagged as phishing that were genuinely malicious:
+   $$\text{Precision} = \frac{\text{TP}}{\text{TP} + \text{FP}}$$
+   *Operational Meaning:* **False Alarm Control.** High precision means that when PhishDetect blocks a link, security teams and users can trust the alert with minimal false alarms ($1 - \text{Precision} = \text{False Discovery Rate}$).
+
+3. **Recall (Sensitivity / True Positive Rate):**
+   The proportion of actual phishing attacks that the detector successfully intercepted:
+   $$\text{Recall} = \frac{\text{TP}}{\text{TP} + \text{FN}}$$
+   *Operational Meaning:* **Threat Catch Rate.** High recall means attackers rarely slip past the filter ($1 - \text{Recall} = \text{False Negative Rate}$).
+
+4. **F1-Score (Harmonic Mean of Precision and Recall):**
+   The harmonic balance between precision and recall, penalizing models that sacrifice one for the other:
+   $$\text{F1-Score} = 2 \times \frac{\text{Precision} \times \text{Recall}}{\text{Precision} + \text{Recall}} = \frac{2\text{TP}}{2\text{TP} + \text{FP} + \text{FN}}$$
+   *Operational Meaning:* Unlike arithmetic mean, the harmonic mean drops sharply if either precision or recall collapses, providing the single most reliable point-estimate metric for operational classifiers.
+
+5. **ROC-AUC (Receiver Operating Characteristic - Area Under Curve):**
+   The integral of True Positive Rate against False Positive Rate across all possible discrimination thresholds $\tau \in [0, 1]$:
+   $$\text{ROC-AUC} = \int_0^1 \text{TPR}(\text{FPR}^{-1}(t)) \, dt = P\big(S(\text{Phish}) > S(\text{Benign})\big)$$
+   *Operational Meaning:* **Threshold-Independent Ranking Capacity.** Represents the exact probability that a randomly chosen phishing URL receives a higher threat risk score than a randomly chosen benign URL. An AUC of $0.50$ is random guessing; $1.00$ is perfect ranking separation.
+
+---
+
+### 5.2 Confusion Matrix Breakdown ($N = 7,434$ Held-Out URLs)
+
+Evaluated on the held-out test split ($3,892$ phishing URLs and $3,542$ benign URLs from $5,881$ completely unseen registered domains):
+
+| Model Architecture | True Negative (TN) | False Positive (FP) | False Negative (FN) | True Positive (TP) | Decision Threshold ($\tau$) |
+| :--- | :---: | :---: | :---: | :---: | :---: |
+| **LightGBM (Primary Model)** | **3,189** | **353** | **712** | **3,180** | $\tau = 0.4409$ |
+| **BiLSTM (Neural Baseline)** | 2,358 | 1,184 | 998 | 2,894 | $\tau = 0.3318$ |
+
+*Figure 7 (`research/figures/fig7_confusion_matrices.png`) illustrates the comparative confusion matrix heatmaps between the primary LightGBM detector and the deep-learning sequence model.*
+
+```
+   [LightGBM Primary Model]                 [BiLSTM Neural Baseline]
+      Pred 0      Pred 1                       Pred 0      Pred 1
+True 0 [ 3,189 ]   [  353  ] (FP: 4.7%)   True 0 [ 2,358 ]   [ 1,184 ] (FP: 15.9%)
+True 1 [  712  ]   [ 3,180 ] (TP: 42.8%)  True 1 [  998  ]   [ 2,894 ] (TP: 38.9%)
+```
+
+---
+
+### 5.3 Comparative Metric Analysis & In-Depth Result Interpretation
+
+| Metric | LightGBM (Primary Model) | BiLSTM (Neural Baseline) | Difference ($\Delta$) | Operational Implication |
+| :--- | :---: | :---: | :---: | :--- |
+| **Accuracy** | **85.67%** | 70.65% | **+15.02%** | Overall correct decisions across unseen domains. |
+| **Precision** | **90.01%** | 70.97% | **+19.04%** | LightGBM generates $3.35\times$ fewer false alarms (353 vs 1,184 FPs). |
+| **Recall** | **81.71%** | 74.36% | **+7.35%** | LightGBM catches 286 more live phishing attacks on held-out domains. |
+| **F1-Score** | **85.66%** | 72.62% | **+13.04%** | Superior harmonic trade-off; avoids sacrificing user usability for recall. |
+| **ROC-AUC** | **0.9288** | 0.7874 | **+0.1414** | Robust probability separation across all possible operating thresholds. |
+| **Inference Latency** | **0.008 ms** | 0.405 ms | **50× Faster** | Capable of inspecting traffic at line rate without client-side lag. |
+
+#### Detailed Interpretation of the Results:
+1. **Why LightGBM Outperforms BiLSTM by +14.1% AUC:**  
+   Raw character LSTMs attempt to learn grammar, vocabulary, and token boundaries from scratch without semantic guidance. However, phishers frequently rotate random alphanumeric tokens (`xyz182.top`), where character sequence dependencies break down. LightGBM, armed with 47 engineered structural ratios (Shannon entropy, brand-TLD alignment, digit ratio, token counts), directly measures anomalies that character sequences alone struggle to capture on unseen domains.
+2. **False Positive Suppression (90.01% vs 70.97% Precision):**  
+   In enterprise and browser environments, a model with 70.97% precision generates **1,184 false alerts out of 3,542 benign URLs (33.4% false positive rate on benign traffic)**, leading to "alert fatigue" where users disable security extensions. LightGBM restricts false alarms to just 353 cases (9.9% FPR), making it viable for real-world browser integration.
+3. **The Role of Decision Threshold Calibration:**  
+   Rather than naively assuming $\tau = 0.50$, the decision threshold for LightGBM was mathematically optimized to $\tau = 0.4409$ on the independent validation split ($N=1,839$) to balance recall against false alarms before evaluating on the test set.
+
+---
+
+### 5.4 Summary of Publication Figures & Visual Evidence
+
+All visual assets are rendered at 300 DPI and versioned in `research/figures/`:
+
+| Figure Reference | Output File Paths | Content & Empirical Finding |
+| :--- | :--- | :--- |
+| **Figure 1** | `research/figures/fig1_track_a_forest_plot.png` (`.pdf`) | **Forest Plot with 95% Bootstrap CIs:** Shows effect sizes ($\Delta\text{AUC}$) across all confirmatory hypotheses (A1–A5). |
+| **Figure 2** | `research/figures/fig2_a2_syntactic_shifts.png` (`.pdf`) | **Syntactic Representation Shifts:** Demonstrates probability shifts when adding `www.` to benign homepages. |
+| **Figure 3** | `research/figures/fig3_a4_calibration_and_transfer.png` (`.pdf`) | **Calibration Failure & ROC Curves:** Visualizes the 5.5× surge in Expected Calibration Error on external feeds. |
+| **Figure 4** | `research/figures/fig4_hosting_infrastructure_census.png` (`.pdf`) | **Multi-Tenant Hosting Distribution:** Shows the breakdown of phishing lures hosted on cloud platforms. |
+| **Figure 5** | `research/figures/fig5_a5_temporal_decay.png` (`.pdf`) | **Temporal Decay Curves:** Plots performance degradation over chronological time splits. |
+| **Figure 6** | `research/figures/fig6_bilstm_vs_lightgbm.png` (`.pdf`) | **BiLSTM vs LightGBM Trajectory:** Compares training/validation curves and ROC curves between models. |
+| **Figure 7** | `research/figures/fig7_confusion_matrices.png` (`.pdf`) | **Confusion Matrix Heatmaps:** Side-by-side TN, FP, FN, TP distribution for LightGBM and BiLSTM. |
+
+---
+
+## 6. Our Scientific & Engineering Novelty
 
 1. **Pre-Registered Confirmatory Protocol (`prereg-v2`):**
    First phishing detection study to adopt open-science preregistration principles (frozen at commit `b4a5d2a758223f1d7895b722ef6650087ef33a27`), preventing post-hoc hypothesis adjustments and publication bias.
