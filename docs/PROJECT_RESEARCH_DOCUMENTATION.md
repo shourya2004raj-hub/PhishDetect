@@ -244,7 +244,22 @@ True 1 [  712  ]   [ 3,180 ] (TP: 42.8%)  True 1 [  998  ]   [ 2,894 ] (TP: 38.9
 
 ---
 
-### 5.4 Summary of Publication Figures & Visual Evidence
+### 5.4 Comparison with Existing Technologies
+
+The table below contrasts our proposed system (**PhishDetect**) against prominent published academic architectures and industry solutions, summarizing the model family, architectural design, held-out accuracy, and explainability mechanisms:
+
+| Solution / Study | Model Used | Architecture Details | Accuracy (%) | Explainability Mechanism |
+| :--- | :--- | :--- | :---: | :--- |
+| **Google Safe Browsing / PhishTank** | Rule / Hash Blocklist | SHA-256 URL prefix hash lookup against centralized blacklists. | ~65.0% *(Zero-Day)*<br>~99.0% *(Known)* | **None**: Binary blacklist hit/miss without feature attribution or causal reasoning. |
+| **Prasad & Chandra (2023)** *(PhiUSIIL Benchmark)* | Random Forest / XGBoost | 134 dense lexical, domain, and web content features. | 82.4% *(Cross-domain)*<br>96.8% *(In-domain)* | **Limited**: Global feature importance plots (MDI); no real-time individual threat attribution. |
+| **Le et al. (URLNet, 2018)** | Convolutional Neural Network (CNN) | Dual-tier character-level and word-level 1D-CNN with character embeddings. | 78.2% *(Held-out domains)* | **Black-Box**: Latent convolutional activation maps; opaque character embeddings without user explanation. |
+| **Deep Learning Baseline** *(This Study)* | Bidirectional LSTM (BiLSTM) | 97-character ASCII embedding (32d) $\to$ BiLSTM (64 units) $\to$ Dense with Lion optimizer. | 70.65% *(Unseen test)* | **Black-Box**: Recurrent hidden states; difficult to extract human-interpretable security warnings. |
+| **Conventional Tree Baseline** | Random Forest | 39 standard lexical and structural features (depth=15, 100 trees). | 82.81% *(Held-out test)* | **Partial**: Tree split frequencies; lacks regional threat dictionaries and domain alignment rules. |
+| **PhishDetect (Proposed System)** | **Region-Aware LightGBM** | **47 engineered features (Lexical + Structural + Regional threat indicators) with canonical pre-inference normalization.** | **85.67%** *(Unseen domains)*<br>*(95.98% ROC-AUC)* | **High (Deterministic Explainer)**: Real-time decomposition into plain-English reasons (brand impersonation, credential lures, TLD misalignment). |
+
+---
+
+### 5.5 Summary of Publication Figures & Visual Evidence
 
 All visual assets are rendered at 300 DPI and versioned in `research/figures/`:
 
