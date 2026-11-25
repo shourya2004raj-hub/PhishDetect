@@ -38,6 +38,14 @@ BASE_DIR = os.path.dirname(__file__)
 MODEL_REGION_AWARE = os.path.join(BASE_DIR, "model_region_aware.joblib")
 MODEL_BASELINE = os.path.join(BASE_DIR, "model_baseline.joblib")
 
+# Verified major trusted domains for safe browsing
+GLOBAL_TRUSTED_DOMAINS = {
+    "github.com", "google.com", "google.co.in", "microsoft.com", "apple.com",
+    "amazon.com", "amazon.in", "youtube.com", "wikipedia.org", "linkedin.com",
+    "twitter.com", "x.com", "facebook.com", "instagram.com", "netflix.com",
+    "cloudflare.com", "stackoverflow.com", "reddit.com", "yahoo.com"
+}
+
 _classifier: Optional[PhishingClassifier] = None
 _explainer = PhishingExplainer()
 _model_sha256: Optional[str] = None
@@ -195,10 +203,11 @@ def predict_url(payload: PredictRequest):
     policy_override = "none"
     final_risk_score = ml_risk_score
 
-    # Check safe-listing: official institutional portal without misalignment/IP
+    # Check safe-listing: official institutional portal or major platform without misalignment/IP
     is_verified_official = (
-        any(registered_domain in domains for domains in DEFAULT_OFFICIAL_DOMAINS.values())
-        or registered_domain.endswith((".gov.in", ".nic.in"))
+        registered_domain in GLOBAL_TRUSTED_DOMAINS
+        or any(registered_domain in domains for domains in DEFAULT_OFFICIAL_DOMAINS.values())
+        or registered_domain.endswith((".gov.in", ".nic.in", ".edu", ".ac.in"))
     ) and feature_dict.get("brand_tld_misalignment", 0.0) == 0.0 and feature_dict.get("has_ip", 0.0) == 0.0
 
     if is_verified_official:

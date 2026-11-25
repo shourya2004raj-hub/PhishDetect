@@ -20,6 +20,9 @@ function inspectLink(anchorElement) {
 }
 
 function flagSuspiciousLink(anchorElement, detection) {
+  if (anchorElement.dataset.phishBadged) return;
+  anchorElement.dataset.phishBadged = "true";
+
   // Add red highlight
   anchorElement.style.borderBottom = "2px dashed #ef4444";
   anchorElement.style.color = "#ef4444";
