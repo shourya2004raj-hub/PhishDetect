@@ -26,3 +26,7 @@ dist/
 .idea/
 # Testing
 .pytest_cache/
+
+# Local Generated Reports
+*.docx
+scripts/generate_college_report.py
