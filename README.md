@@ -36,7 +36,6 @@ To address the **Lexical Illusion** in ML phishing detection and establish leak-
 - **Academic Manuscript**: [`docs/PAPER_MANUSCRIPT.md`](docs/PAPER_MANUSCRIPT.md)
 - **Comprehensive Project Standing & Novelty**: [`docs/PROJECT_RESEARCH_DOCUMENTATION.md`](docs/PROJECT_RESEARCH_DOCUMENTATION.md)
 - **Protocol Amendments**: [`research/EXPERIMENT_PROTOCOL_AMENDMENT_1.md`](research/EXPERIMENT_PROTOCOL_AMENDMENT_1.md)
-- **LLM-Use Audit**: [`research/LLM_USE_AUDIT.md`](research/LLM_USE_AUDIT.md)
 
 ### Confirmatory Findings at a Glance
 
@@ -153,7 +152,6 @@ Static URL String
 │   ├── results/              # Confirmatory JSON metrics & verification logs
 │   ├── CONFIRMATORY_REPORT.md # Pre-registered Gate G3 empirical evaluation
 │   ├── EXPERIMENT_PROTOCOL.md # Track A / Track B pre-registered design
-│   ├── LLM_USE_AUDIT.md      # Methodological audit of LLM usage
 │   ├── reproduce.py          # Unified CLI reproduction & verification tool
 │   └── run_bilstm.py         # Character-level BiLSTM training with Lion optimizer
 ├── results/                  # Consolidated benchmark summary and neural evaluation

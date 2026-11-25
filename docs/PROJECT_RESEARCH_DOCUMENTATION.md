@@ -418,9 +418,7 @@ Phishing/
 │   ├── make_figures.py             # Script to regenerate all publication figures
 │   ├── run_bilstm.py               # BiLSTM training with Lion optimizer & evaluation
 │   ├── reproduce.py                # Command-line reproduction suite (verify/inspect/run)
-│   ├── stats.py                    # Paired domain-clustered bootstrap inference engine
-│   ├── LLM_USE_AUDIT.md            # Unsparing LLM-use and synthetic data audit
-│   └── AI_ASSISTANCE_DISCLOSURE.md # ACM/IEEE-compliant AI transparency declaration
+│   └── stats.py                    # Paired domain-clustered bootstrap inference engine
 ├── src/
 │   ├── features/                   # 47-feature extraction engine (lexical, structural, regional)
 │   ├── models/                     # LightGBM and BiLSTM neural network wrappers
