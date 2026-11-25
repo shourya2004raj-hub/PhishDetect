@@ -56,7 +56,7 @@ document.addEventListener("DOMContentLoaded", () => {
         container.className = data.is_phishing ? "verdict-card phish" : "verdict-card legit";
 
         verdictText.textContent = data.is_phishing ? "⚠️ PHISHING DETECTED" : "✓ VERIFIED SAFE";
-        scoreText.textContent = `${(data.risk_score * 100).toFixed(1)}%`;
+        scoreText.textContent = `Risk: ${(data.risk_score * 100).toFixed(1)}%`;
         latencyText.textContent = `⚡ ${data.latency_ms} ms`;
 
         reasonsList.innerHTML = "";
