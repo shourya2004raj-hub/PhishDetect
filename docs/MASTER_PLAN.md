@@ -3,7 +3,7 @@
 > [!IMPORTANT]
 > **Finalized, Zero-Shortcut Blueprint:**  
 > Designed for **solo end-to-end execution first** on `main`, followed by clean handover to teammates via [`docs/TEAM_COLLABORATION_WORKFLOW.md`](TEAM_COLLABORATION_WORKFLOW.md).  
-> Every architectural choice is backed by verified 2017–2026 peer-reviewed literature in [`docs/RESEARCH_FOUNDATION_AND_METHODOLOGY.md`](RESEARCH_FOUNDATION_AND_METHODOLOGY.md).
+> Every architectural choice is backed by verified 2017–2026 peer-reviewed literature in [`docs/RESEARCH_FOUNDATION_AND_METHODOLOGY.md`](RESEARCH_FOUNDATION_AND_METHODOLOGY.md), and the detailed baseline audit explaining why we are pivoting from `v2.x` to `v3.0` is documented in [`docs/PROJECT_STANDING_AND_PIVOT_RATIONALE.md`](PROJECT_STANDING_AND_PIVOT_RATIONALE.md).
 
 ---
 
