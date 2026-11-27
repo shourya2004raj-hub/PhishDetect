@@ -64,5 +64,5 @@ def test_verify_splits_baseline_audit():
     assert checks["global_train vs a4_domain_disjoint"]["is_clean"] is True
     assert report["internal_train_val_grouped_check"]["is_clean"] is True
 
-    # Phase 0 baseline audit correctly catches A1 overlap before Phase 1 repairs it
-    assert checks["global_train vs a1_path_matched"]["overlap_domains"] > 0
+    # All strict zero-overlap splits (including repaired A1) must have 0 overlap
+    assert checks["global_train vs a1_path_matched"]["is_clean"] is True

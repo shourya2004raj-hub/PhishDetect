@@ -28,6 +28,9 @@ from src.utils.domain import extract_registered_domain
 SPLIT_PATHS: Dict[str, str] = {
     "global_train": "data/processed/global_train.csv",
     "global_test": "data/processed/global_test.csv",
+    "v3_train": "data/processed/v3_train.csv",
+    "v3_val": "data/processed/v3_val.csv",
+    "v3_test": "data/processed/v3_test.csv",
     "indian_train": "data/processed/indian_train.csv",
     "indian_test": "data/processed/indian_test.csv",
     "phiusiil_train": "data/processed/phiusiil_train.csv",
@@ -38,6 +41,7 @@ SPLIT_PATHS: Dict[str, str] = {
     "a4_domain_disjoint": "data/benchmark/a4_domain_disjoint.csv",
     "a5_temporal_train": "data/benchmark/a5_temporal_train.csv",
     "a5_temporal_test": "data/benchmark/a5_temporal_test.csv",
+    "a5_temporal_monthly": "data/benchmark/a5_temporal_monthly.csv",
 }
 
 # Pairs that MUST have strictly zero overlapping registered domains in strict gate mode
@@ -48,6 +52,12 @@ STRICT_ZERO_OVERLAP_PAIRS: List[Tuple[str, str]] = [
     ("a5_temporal_train", "a5_temporal_test"),
     ("global_train", "a1_path_matched"),
     ("global_train", "a4_domain_disjoint"),
+    ("v3_train", "v3_val"),
+    ("v3_train", "v3_test"),
+    ("v3_val", "v3_test"),
+    ("v3_train", "a1_path_matched"),
+    ("v3_val", "a1_path_matched"),
+    ("a5_temporal_train", "a5_temporal_monthly"),
 ]
 
 # Pairs monitored for shared multi-tenant / natural cross-corpus overlap (informational)
@@ -151,12 +161,15 @@ def run_verification(strict: bool = False) -> Tuple[Dict, bool]:
 
     # Sampling bias audit (bare homepage vs deep path imbalance)
     bias_audit = {}
-    for split_name in ["global_train", "global_test", "a1_path_matched", "a5_temporal_train", "a5_temporal_test"]:
+    for split_name in ["global_train", "global_test", "v3_train", "v3_val", "v3_test", "a1_path_matched", "a5_temporal_train", "a5_temporal_test"]:
         if split_name in dfs:
             bias_audit[split_name] = _compute_bare_root_rates(dfs[split_name])
 
     all_strict_clean = all(r.get("is_clean", False) for r in strict_results) and val_check.get("is_clean", False)
-    no_bias_warnings = not any(v.get("bias_warning", False) for v in bias_audit.values())
+    gated_bias_splits = ["v3_train", "v3_val", "v3_test", "a1_path_matched"]
+    no_bias_warnings = not any(
+        bias_audit[k].get("bias_warning", False) for k in gated_bias_splits if k in bias_audit
+    )
 
     report = {
         "strict_zero_overlap_checks": strict_results,

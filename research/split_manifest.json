@@ -1,8 +1,8 @@
 {
   "a1_path_matched.csv": {
     "path": "data/benchmark/a1_path_matched.csv",
-    "sha256": "ae74e098bb87c06bf16aa4702bbe01645a13d0cc36bde9d9a0291cd9d319b670",
-    "rows": 21094,
+    "sha256": "16d5795363c966c22bb9b1f663a31945e4ad5e89cf1453175210357900fe00af",
+    "rows": 20000,
     "columns": [
       "url",
       "label_num",
@@ -14,8 +14,8 @@
       "stratum"
     ],
     "label_distribution": {
-      "0": 10547,
-      "1": 10547
+      "1": 10000,
+      "0": 10000
     }
   },
   "a2_representation.csv": {
@@ -76,6 +76,52 @@
       "1": 1187
     }
   },
+  "a5_base_rate_1pct.csv": {
+    "path": "data/benchmark/a5_base_rate_1pct.csv",
+    "sha256": "5daf5283c4ad31db16a1d90f2df43bd561542de91f2deac11887be7ec1e16398",
+    "rows": 4224,
+    "columns": [
+      "url",
+      "label_num",
+      "date",
+      "registered_domain"
+    ],
+    "label_distribution": {
+      "0": 4182,
+      "1": 42
+    }
+  },
+  "a5_base_rate_5pct.csv": {
+    "path": "data/benchmark/a5_base_rate_5pct.csv",
+    "sha256": "1f850e4a49c1249f2fd277e0d998ae664922881ebc73f2226dfa200d0ed79412",
+    "rows": 4402,
+    "columns": [
+      "url",
+      "label_num",
+      "date",
+      "registered_domain"
+    ],
+    "label_distribution": {
+      "0": 4182,
+      "1": 220
+    }
+  },
+  "a5_temporal_monthly.csv": {
+    "path": "data/benchmark/a5_temporal_monthly.csv",
+    "sha256": "382eb08f6f91c11c77ab795047d1c7cefce3d212512039daf5a80b664ef630a4",
+    "rows": 25029,
+    "columns": [
+      "url",
+      "label_num",
+      "date",
+      "year_month",
+      "registered_domain"
+    ],
+    "label_distribution": {
+      "1": 16089,
+      "0": 8940
+    }
+  },
   "a5_temporal_test.csv": {
     "path": "data/benchmark/a5_temporal_test.csv",
     "sha256": "28a98158068a39d955886bf0c6534f1e4ab7ddc2934f501039cbb55e0a03b747",
@@ -120,6 +166,185 @@
     "label_distribution": {
       "1": 1205,
       "0": 477
+    }
+  },
+  "stage2_cloud_dom.parquet": {
+    "path": "data/benchmark/stage2_cloud_dom.parquet",
+    "sha256": "34a2e90d4c08ca2c9da57dbd2486d57877a64b9da81500d056c2e9c228ad8a10",
+    "rows": 1254,
+    "columns": [
+      "url",
+      "registered_domain",
+      "is_cloud_host",
+      "label",
+      "target",
+      "date",
+      "source",
+      "has_password_input",
+      "has_email_or_user_input",
+      "has_otp_or_card_input",
+      "num_forms",
+      "has_cross_origin_form",
+      "has_js_or_null_form",
+      "has_login_cta_text",
+      "num_external_links",
+      "num_internal_links",
+      "external_link_ratio",
+      "title_len",
+      "title_claims_brand",
+      "brand_dom_mismatch",
+      "missing_or_external_favicon",
+      "hidden_input_count",
+      "html_length"
+    ],
+    "label_distribution": {
+      "1": 649,
+      "0": 605
+    }
+  },
+  "global_test.csv": {
+    "path": "data/processed/global_test.csv",
+    "sha256": "9de44b738d215bab240efab5ef1642b16efc0fb039e2fbd542844ebaa69170cc",
+    "rows": 7434,
+    "columns": [
+      "url",
+      "label",
+      "date",
+      "split",
+      "registered_domain"
+    ],
+    "label_distribution": {
+      "1": 3892,
+      "0": 3542
+    }
+  },
+  "global_train.csv": {
+    "path": "data/processed/global_train.csv",
+    "sha256": "01635fa89f7c942c9f08ddd22e2d1ef37cb5e5a2c94019785ddb5a1a81eceb8c",
+    "rows": 40708,
+    "columns": [
+      "url",
+      "label",
+      "date",
+      "split",
+      "registered_domain",
+      "is_indian"
+    ],
+    "label_distribution": {
+      "0": 24739,
+      "1": 15969
+    }
+  },
+  "indian_test.csv": {
+    "path": "data/processed/indian_test.csv",
+    "sha256": "2b4913c08dfec237e44de975be73e80e394031b144739963dd5d4e0b92692f9a",
+    "rows": 3082,
+    "columns": [
+      "url",
+      "label",
+      "date",
+      "source",
+      "registered_domain",
+      "is_indian",
+      "is_synthetic"
+    ],
+    "label_distribution": {
+      "0": 1541,
+      "1": 1541
+    }
+  },
+  "indian_train.csv": {
+    "path": "data/processed/indian_train.csv",
+    "sha256": "f3e27477146d34507999055f56830a42c35df7baa6310995a8a84b7d3f0a1e5e",
+    "rows": 1284,
+    "columns": [
+      "url",
+      "label",
+      "date",
+      "source",
+      "registered_domain",
+      "is_indian",
+      "is_synthetic"
+    ],
+    "label_distribution": {
+      "0": 642,
+      "1": 642
+    }
+  },
+  "phiusiil_test.csv": {
+    "path": "data/processed/phiusiil_test.csv",
+    "sha256": "03ea3382900ce1c4dc80c44cfb1c0d9171a24cc73cf821d4f847e24245372006",
+    "rows": 3520,
+    "columns": [
+      "url",
+      "label",
+      "registered_domain"
+    ],
+    "label_distribution": {
+      "0": 1760,
+      "1": 1760
+    }
+  },
+  "phiusiil_train.csv": {
+    "path": "data/processed/phiusiil_train.csv",
+    "sha256": "7b9f737f5e7dee7e325c75d3df00ff79f676de56d55fe73bfb8d567e14bb9cb1",
+    "rows": 9440,
+    "columns": [
+      "url",
+      "label",
+      "registered_domain"
+    ],
+    "label_distribution": {
+      "1": 4720,
+      "0": 4720
+    }
+  },
+  "v3_test.csv": {
+    "path": "data/processed/v3_test.csv",
+    "sha256": "f842c82ae16d30edd93ac39ff9ffdd83c0c04c9311768bfc0d907a606bb73c5c",
+    "rows": 9200,
+    "columns": [
+      "url",
+      "label",
+      "date",
+      "registered_domain",
+      "source"
+    ],
+    "label_distribution": {
+      "1": 5018,
+      "0": 4182
+    }
+  },
+  "v3_train.csv": {
+    "path": "data/processed/v3_train.csv",
+    "sha256": "a43181f28f5eabe003f7bb0dd86eec89a7f265906de73fdf874b3f8e7f0e7bae",
+    "rows": 37513,
+    "columns": [
+      "url",
+      "label",
+      "date",
+      "registered_domain",
+      "source"
+    ],
+    "label_distribution": {
+      "1": 18944,
+      "0": 18569
+    }
+  },
+  "v3_val.csv": {
+    "path": "data/processed/v3_val.csv",
+    "sha256": "a9e7af961f90b62a5f9dfda09a96f4a1204daa7d4f346868dde1e95b2c3def3e",
+    "rows": 5623,
+    "columns": [
+      "url",
+      "label",
+      "date",
+      "registered_domain",
+      "source"
+    ],
+    "label_distribution": {
+      "0": 3471,
+      "1": 2152
     }
   }
 }

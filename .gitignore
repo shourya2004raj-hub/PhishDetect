@@ -15,6 +15,7 @@ data/raw/tranco_cache/
 data/processed/feature_cache/
 audit/results/*.parquet
 *.parquet
+!data/benchmark/stage2_cloud_dom.parquet
 
 # Node / Frontend
 node_modules/

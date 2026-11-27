@@ -43,28 +43,77 @@
     {
       "pair": "global_train vs a1_path_matched",
       "left_domains": 20936,
-      "right_domains": 10870,
-      "overlap_domains": 2777,
-      "affected_right_rows": 11987,
-      "affected_right_pct": 56.83,
-      "sample_overlaps": [
-        "000.pe",
-        "000webhostapp.com",
-        "10tv.com",
-        "11zon.com",
-        "162.241.70.242",
-        "170.205.31.135",
-        "1800contacts.com",
-        "1800flowers.com",
-        "20minutes.fr",
-        "247sports.com"
-      ],
-      "is_clean": false
+      "right_domains": 16746,
+      "overlap_domains": 0,
+      "affected_right_rows": 0,
+      "affected_right_pct": 0.0,
+      "sample_overlaps": [],
+      "is_clean": true
     },
     {
       "pair": "global_train vs a4_domain_disjoint",
       "left_domains": 20936,
       "right_domains": 2746,
+      "overlap_domains": 0,
+      "affected_right_rows": 0,
+      "affected_right_pct": 0.0,
+      "sample_overlaps": [],
+      "is_clean": true
+    },
+    {
+      "pair": "v3_train vs v3_val",
+      "left_domains": 20963,
+      "right_domains": 4074,
+      "overlap_domains": 0,
+      "affected_right_rows": 0,
+      "affected_right_pct": 0.0,
+      "sample_overlaps": [],
+      "is_clean": true
+    },
+    {
+      "pair": "v3_train vs v3_test",
+      "left_domains": 20963,
+      "right_domains": 5041,
+      "overlap_domains": 0,
+      "affected_right_rows": 0,
+      "affected_right_pct": 0.0,
+      "sample_overlaps": [],
+      "is_clean": true
+    },
+    {
+      "pair": "v3_val vs v3_test",
+      "left_domains": 4074,
+      "right_domains": 5041,
+      "overlap_domains": 0,
+      "affected_right_rows": 0,
+      "affected_right_pct": 0.0,
+      "sample_overlaps": [],
+      "is_clean": true
+    },
+    {
+      "pair": "v3_train vs a1_path_matched",
+      "left_domains": 20963,
+      "right_domains": 16746,
+      "overlap_domains": 0,
+      "affected_right_rows": 0,
+      "affected_right_pct": 0.0,
+      "sample_overlaps": [],
+      "is_clean": true
+    },
+    {
+      "pair": "v3_val vs a1_path_matched",
+      "left_domains": 4074,
+      "right_domains": 16746,
+      "overlap_domains": 0,
+      "affected_right_rows": 0,
+      "affected_right_pct": 0.0,
+      "sample_overlaps": [],
+      "is_clean": true
+    },
+    {
+      "pair": "a5_temporal_train vs a5_temporal_monthly",
+      "left_domains": 11182,
+      "right_domains": 18845,
       "overlap_domains": 0,
       "affected_right_rows": 0,
       "affected_right_pct": 0.0,
@@ -135,10 +184,28 @@
       "bare_rate_gap": 0.2387,
       "bias_warning": false
     },
+    "v3_train": {
+      "benign_bare_rate": 0.4079,
+      "phishing_bare_rate": 0.4466,
+      "bare_rate_gap": 0.0387,
+      "bias_warning": false
+    },
+    "v3_val": {
+      "benign_bare_rate": 0.4307,
+      "phishing_bare_rate": 0.4043,
+      "bare_rate_gap": 0.0264,
+      "bias_warning": false
+    },
+    "v3_test": {
+      "benign_bare_rate": 0.3577,
+      "phishing_bare_rate": 0.2888,
+      "bare_rate_gap": 0.069,
+      "bias_warning": false
+    },
     "a1_path_matched": {
-      "benign_bare_rate": 0.154,
-      "phishing_bare_rate": 0.154,
-      "bare_rate_gap": 0.0,
+      "benign_bare_rate": 0.3374,
+      "phishing_bare_rate": 0.3412,
+      "bare_rate_gap": 0.0038,
       "bias_warning": false
     },
     "a5_temporal_train": {
@@ -155,8 +222,8 @@
     }
   },
   "summary": {
-    "all_strict_overlaps_zero": false,
-    "no_bare_root_bias_warnings": false,
-    "gate_passed": false
+    "all_strict_overlaps_zero": true,
+    "no_bare_root_bias_warnings": true,
+    "gate_passed": true
   }
 }
