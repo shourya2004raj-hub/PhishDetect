@@ -1,0 +1,162 @@
+{
+  "strict_zero_overlap_checks": [
+    {
+      "pair": "global_train vs global_test",
+      "left_domains": 20936,
+      "right_domains": 5881,
+      "overlap_domains": 0,
+      "affected_right_rows": 0,
+      "affected_right_pct": 0.0,
+      "sample_overlaps": [],
+      "is_clean": true
+    },
+    {
+      "pair": "indian_train vs indian_test",
+      "left_domains": 859,
+      "right_domains": 2393,
+      "overlap_domains": 0,
+      "affected_right_rows": 0,
+      "affected_right_pct": 0.0,
+      "sample_overlaps": [],
+      "is_clean": true
+    },
+    {
+      "pair": "phiusiil_train vs phiusiil_test",
+      "left_domains": 7172,
+      "right_domains": 2838,
+      "overlap_domains": 0,
+      "affected_right_rows": 0,
+      "affected_right_pct": 0.0,
+      "sample_overlaps": [],
+      "is_clean": true
+    },
+    {
+      "pair": "a5_temporal_train vs a5_temporal_test",
+      "left_domains": 11182,
+      "right_domains": 7646,
+      "overlap_domains": 0,
+      "affected_right_rows": 0,
+      "affected_right_pct": 0.0,
+      "sample_overlaps": [],
+      "is_clean": true
+    },
+    {
+      "pair": "global_train vs a1_path_matched",
+      "left_domains": 20936,
+      "right_domains": 10870,
+      "overlap_domains": 2777,
+      "affected_right_rows": 11987,
+      "affected_right_pct": 56.83,
+      "sample_overlaps": [
+        "000.pe",
+        "000webhostapp.com",
+        "10tv.com",
+        "11zon.com",
+        "162.241.70.242",
+        "170.205.31.135",
+        "1800contacts.com",
+        "1800flowers.com",
+        "20minutes.fr",
+        "247sports.com"
+      ],
+      "is_clean": false
+    },
+    {
+      "pair": "global_train vs a4_domain_disjoint",
+      "left_domains": 20936,
+      "right_domains": 2746,
+      "overlap_domains": 0,
+      "affected_right_rows": 0,
+      "affected_right_pct": 0.0,
+      "sample_overlaps": [],
+      "is_clean": true
+    }
+  ],
+  "monitored_overlap_checks": [
+    {
+      "pair": "global_train vs a3_unseen_brands",
+      "left_domains": 20936,
+      "right_domains": 579,
+      "overlap_domains": 12,
+      "affected_right_rows": 15,
+      "affected_right_pct": 2.28,
+      "sample_overlaps": [
+        "blogspot.com",
+        "boi-infinity.online",
+        "hostingersite.com",
+        "in.net",
+        "netlify.app",
+        "rbiorg-online.in",
+        "resortsdella.com",
+        "sterling-hotel.com",
+        "vercel.app",
+        "weebly.com"
+      ],
+      "is_clean": false
+    },
+    {
+      "pair": "global_train vs a4_cross_distribution",
+      "left_domains": 20936,
+      "right_domains": 2838,
+      "overlap_domains": 77,
+      "affected_right_rows": 572,
+      "affected_right_pct": 16.25,
+      "sample_overlaps": [
+        "alo.rs",
+        "amazonaws.com",
+        "andrewsmcmeel.com",
+        "aomori.lg.jp",
+        "army.mil",
+        "bbg.org",
+        "best-practice.se",
+        "blogspot.de",
+        "blogspot.it",
+        "blogspot.ru"
+      ],
+      "is_clean": false
+    }
+  ],
+  "internal_train_val_grouped_check": {
+    "train_rows": 36176,
+    "val_rows": 4532,
+    "overlap_domains": 0,
+    "is_clean": true
+  },
+  "sampling_bias_bare_root_audit": {
+    "global_train": {
+      "benign_bare_rate": 0.2593,
+      "phishing_bare_rate": 0.4423,
+      "bare_rate_gap": 0.183,
+      "bias_warning": false
+    },
+    "global_test": {
+      "benign_bare_rate": 0.1595,
+      "phishing_bare_rate": 0.3983,
+      "bare_rate_gap": 0.2387,
+      "bias_warning": false
+    },
+    "a1_path_matched": {
+      "benign_bare_rate": 0.154,
+      "phishing_bare_rate": 0.154,
+      "bare_rate_gap": 0.0,
+      "bias_warning": false
+    },
+    "a5_temporal_train": {
+      "benign_bare_rate": 0.0707,
+      "phishing_bare_rate": 0.4094,
+      "bare_rate_gap": 0.3387,
+      "bias_warning": true
+    },
+    "a5_temporal_test": {
+      "benign_bare_rate": 0.1369,
+      "phishing_bare_rate": 0.3821,
+      "bare_rate_gap": 0.2452,
+      "bias_warning": false
+    }
+  },
+  "summary": {
+    "all_strict_overlaps_zero": false,
+    "no_bare_root_bias_warnings": false,
+    "gate_passed": false
+  }
+}
